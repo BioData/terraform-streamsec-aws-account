@@ -66,6 +66,8 @@ resource "aws_iam_policy" "lambda_exec_policy" {
     ]
 
   })
+
+  tags = merge(var.tags, var.iam_policy_tags)
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_execution_role_policy_attachment" {
@@ -123,6 +125,8 @@ resource "aws_lambda_function" "streamsec_iam_activity_lambda" {
       NODE_ENV    = "production"
     }
   }
+
+  tags = merge(var.tags, var.lambda_tags)
 }
 
 resource "aws_lambda_function_event_invoke_config" "streamsec_options_cloudwatch" {
