@@ -140,6 +140,7 @@ resource "aws_cloudwatch_event_rule" "streamsec_cloudwatch_rules" {
   name          = each.key
   description   = each.value["description"]
   event_pattern = each.value["event_pattern"]
+  tags          = var.tags
 }
 
 resource "aws_cloudwatch_event_target" "streamsec_lambda_cloudwatch_target" {
