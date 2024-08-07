@@ -80,6 +80,7 @@ resource "aws_secretsmanager_secret" "streamsec_collection_secret" {
   name                    = var.lambda_collection_secret_name
   description             = "Stream Security Collection Token"
   recovery_window_in_days = 0
+  tags                    = var.tags
 }
 
 resource "aws_secretsmanager_secret_version" "streamsec_collection_secret_version" {
