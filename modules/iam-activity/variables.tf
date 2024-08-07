@@ -143,6 +143,17 @@ variable "iam_activity_bucket_name" {
   type        = string
 }
 
+#####################################
+# Added by Biodata
+#####################################
+
+variable "lambda_runtime" {
+  description = "(optional) overwrite hardcoded lambda compatible_runtimes and lambda_runtime"
+  type        = string
+  default     = "nodejs20.x"
+  nullable    = false
+}
+
 ################################################################################
 # General
 ################################################################################
