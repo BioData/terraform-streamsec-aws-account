@@ -134,6 +134,17 @@ variable "lambda_policy_path" {
   default     = null
 }
 
+#####################################
+# Added by Biodata
+#####################################
+
+variable "lambda_runtime" {
+  description = "(optional) overwrite hardcoded lambda compatible_runtimes and lambda_runtime"
+  type        = string
+  default     = "nodejs20.x"
+  nullable    = false
+}
+
 ################################################################################
 # General
 ################################################################################
