@@ -139,6 +139,20 @@ variable "lambda_cloudwatch_max_retry" {
   default     = 2
 }
 
+variable "lambda_runtime" {
+  description = "(optional) overwrite hardcoded lambda compatible_runtimes and lambda_runtime"
+  type        = string
+  default     = "nodejs20.x"
+  nullable    = false
+}
+
+variable "lambda_tags" {
+  description = "(optional)A map of tags to add to the lambda created"
+  type        = map(string)
+  default     = {}
+  nullable    = false
+}
+
 variable "lambda_iam_role_name" {
   description = "Name to use on IAM role created"
   type        = string
