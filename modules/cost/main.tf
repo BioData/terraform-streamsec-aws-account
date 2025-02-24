@@ -258,6 +258,7 @@ resource "aws_s3_bucket_policy" "s3_cloudtrail_policy_attachment" {
 
 resource "aws_s3_bucket_notification" "cost_s3_lambda_trigger" {
   bucket = data.aws_s3_bucket.cost_bucket.id
+  eventbridge = var.enable_eventbridge
   lambda_function {
     lambda_function_arn = aws_lambda_function.streamsec_cost_lambda.arn
     events              = ["s3:ObjectCreated:*"]

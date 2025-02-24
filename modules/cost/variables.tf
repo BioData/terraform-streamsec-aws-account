@@ -217,6 +217,12 @@ variable "create_cost_bucket" {
   default     = false
 }
 
+variable "enable_eventbridge" {
+  description = "Whether to enable the creation of eventbridge"
+  type        = bool
+  default     = false
+}
+
 variable "cost_bucket_name" {
   description = "The name of the S3 bucket to store the flow logs"
   type        = string
