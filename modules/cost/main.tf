@@ -200,41 +200,6 @@ resource "aws_lambda_permission" "streamsec_cost_allow_s3_invoke" {
 # Cost S3
 ################################################################################
 
-module "eventbridge" {
-  source = "terraform-aws-modules/eventbridge/aws"
-  version = "1.17.3"
-
-  bus_name  = "cost_monitoring"
-  count = var.enable_eventbridge ? 1 : 0
-
-  rules = {
-    costs = {
-      description   = "trigger on object created"
-      event_pattern = jsonencode({
-    	"source" : ["aws.s3"],
-    	"detail-type" : ["Object Created"],
-   	"detail" : {
-      	  "bucket" : {
-            "name" : [var.cost_bucket_name]
-          },
-          "object" : {
-            "key" : [{
-              "prefix" : var.cur_prefix
-            }]
-          }
-        }
-      })
-   } 
- }
-  targets = {
-    costs = [{
-      name  = "send log to cost monitoring"
-      arn   = aws_lambda_function.streamsec_cost_lambda.arn 
-    }]
-  }
-  tags = var.tags
-}
-
 data "aws_s3_bucket" "cost_bucket" {
   bucket = var.create_cost_bucket ? aws_s3_bucket.streamsec_cost_bucket[0].bucket : var.cost_bucket_name
 }
@@ -294,7 +259,6 @@ resource "aws_s3_bucket_policy" "s3_cloudtrail_policy_attachment" {
 resource "aws_s3_bucket_notification" "cost_s3_lambda_trigger" {
   count  = var.cost_s3_eventbridge_trigger ? 0 : 1
   bucket = data.aws_s3_bucket.cost_bucket.id
-  eventbridge = var.enable_eventbridge
   lambda_function {
     lambda_function_arn = aws_lambda_function.streamsec_cost_lambda.arn
     events              = ["s3:ObjectCreated:*"]
