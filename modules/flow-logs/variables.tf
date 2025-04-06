@@ -41,7 +41,7 @@ variable "lambda_source_code_bucket_prefix" {
 variable "lambda_cloudwatch_s3_source_code_key" {
   description = "The S3 key for the lambda source code"
   type        = string
-  default     = "4fb2b5cafcd872ffbb1f714db211ce5c"
+  default     = "e92c9a4bac42ea2668215a3b6b6e7458"
 }
 
 variable "lambda_layer_name" {
@@ -53,7 +53,7 @@ variable "lambda_layer_name" {
 variable "lambda_layer_s3_source_code_key" {
   description = "The S3 key for the lambda source code"
   type        = string
-  default     = "a581160799adfc5fd663ff7a6259ddd0"
+  default     = "56571f1879e827e71a22add860ed8f46"
 }
 
 variable "lambda_subnet_ids" {
@@ -160,6 +160,24 @@ variable "flowlogs_bucket_force_destroy" {
   description = "A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error"
   type        = bool
   default     = true
+}
+
+variable "flowlogs_s3_eventbridge_trigger" {
+  description = "Whether to create an eventbridge trigger for the S3 bucket instead of an event notification. Requires enabling eventbridge on bucket properties, see: https://docs.streamsec.io/docs/configure-s3-event-notifications-with-amazon-eventbridge"
+  type        = bool
+  default     = false
+}
+
+variable "flowlogs_eventbridge_rule_name" {
+  description = "The name of the eventbridge rule to create for the S3 bucket"
+  type        = string
+  default     = "streamsec-flowlogs-s3-eventbridge-rule"
+}
+
+variable "flowlogs_eventbridge_rule_description" {
+  description = "The description of the eventbridge rule to create for the S3 bucket"
+  type        = string
+  default     = "Stream Security FlowLogs S3 EventBridge Rule"
 }
 
 variable "vpc_ids" {
